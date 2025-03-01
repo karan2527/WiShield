@@ -1,30 +1,37 @@
 {
     "manifest_version": 3,
-    "name": "WiShield",
+    "name": "WiShield - Secure Browsing",
     "version": "1.0",
-    "description": "Secure your internet traffic with WiShield",
-    "permissions": [
-      "activeTab",
-      "storage",
-      "webRequest",
-      "webRequestBlocking",
-      "<all_urls>"
-    ],
-    "background": {
-      "service_worker": "background.js"
+    "description": "Protects your data on public Wi-Fi by detecting insecure connections and encrypting traffic.",
+    "icons": {
+      "16": "icons/icon16.jpg",
+      "48": "icons/icon48.jpg",
+      "128": "icons/icon128.jpg"
     },
+    "permissions": ["declarativeNetRequest"],
+    "host_permissions": ["http://*/*", "https://*/*"],
+    "declarative_net_request": {
+      "rule_resources": [
+        {
+          "id": "https_redirect",
+          "enabled": true,
+          "path": "rules.json"
+        }
+      ]
+    },
+    "content_scripts": [
+      {
+        "matches": ["http://*/*"],
+        "js": ["content.js"]
+      }
+    ],
     "action": {
-      "default_popup": "popup.html",
+      "default_popup": "popup/popup.html",
       "default_icon": {
         "16": "icons/icon16.jpg",
         "48": "icons/icon48.jpg",
         "128": "icons/icon128.jpg"
       }
-    },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ]
+    }
   }
+  

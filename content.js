@@ -1,4 +1,5 @@
-console.log("WiShield content script loaded");
-
-// Example: Log when the content script is loaded
-chrome.runtime.sendMessage({ action: "contentScriptLoaded" });
+if (window.location.protocol === "http:") {
+  alert(
+    "⚠️ Warning: You are visiting an insecure website. Your data may be intercepted."
+  );
+}
